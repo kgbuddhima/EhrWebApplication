@@ -49,5 +49,19 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessEntity\BusinessEntity.csproj">
+      <Project>{60a4e310-9906-4151-9259-7e61efb9fa3f}</Project>
+      <Name>BusinessEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SAL\SAL.csproj">
+      <Project>{0af6afcd-874b-423c-99b2-31203c33a041}</Project>
+      <Name>SAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{b6fbd4a4-e819-4595-bb95-661cff4715ac}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
