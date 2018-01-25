@@ -4,16 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EhrWeb.Models;
+using EhrWeb.ViewModels;
+using BLL.BLLDocuments;
+using BLL.BLLInterfaces;
+using BusinessEntity;
 
 namespace EhrWeb.Controllers
 {
     public class PatientController : Controller
     {
+        IPatientDocument _document = new PatientDocument();
+
         // GET: Patient
-        public ActionResult Index()
+        public ActionResult Patient()
         {
             PatientModel model = new PatientModel();
-            model.PIN = "P000000001";
             model.Address = new AddressModel();
             return View("Patient",model);
         }
@@ -24,24 +29,29 @@ namespace EhrWeb.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Details(int id, FormCollection collection)
+        {
+            return View();
+        }
+
         // GET: Patient/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Patient/Create
+        // POST: Patient/Save
         [HttpPost]
-        public ActionResult Save(PatientModel patient)
+        public ActionResult Save(PatientModel patientModel)
         {
             try
             {
-                PatientModel model = patient;
-                // TODO: Add insert logic here
+                Patient patient = _document.SavePatient(Mappings.MapPatient(patientModel));
+                PatientModel model = Mappings.MapPatient(patient);
                 return View("Patient", model);
-                //return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
@@ -50,7 +60,14 @@ namespace EhrWeb.Controllers
         // GET: Patient/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         // POST: Patient/Edit/5
@@ -59,20 +76,29 @@ namespace EhrWeb.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                Patient patient = _document.GetPatientById(id);
+                PatientModel model = Mappings.MapPatient(patient);
+                return View("Patient", model);
 
-                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                throw;
             }
         }
 
         // GET: Patient/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         // POST: Patient/Delete/5
@@ -81,14 +107,33 @@ namespace EhrWeb.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                bool deleted = _document.DeletePatient(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+
+                throw;
             }
         }
+
+        //// GET: Patient/GetCollection
+        //public ActionResult PatientList()
+        //{
+        //    try
+        //    {
+        //        List<Patient> col = new List<BusinessEntity.Patient>(); //_document.GetPatientCollection();
+        //        col.Add(new Patient());
+        //        col.Add(new Patient());
+        //        col.Add(new Patient());
+        //        PatientListViewModel model = new PatientListViewModel();
+        //        model.PatientCollection = col;
+        //        return View("PatientList",col.ToList());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 }

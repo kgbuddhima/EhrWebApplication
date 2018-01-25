@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EhrWeb.Models.PatientModel>
+﻿@model EhrWeb.ViewModels.PatientListViewModel
 
 @{
     ViewBag.Title = "PatientList";
@@ -13,30 +13,30 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PIN)
+            PIN
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PatientName)
+            PatientName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Birthday)
+            Birthday
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NIC)
+            NIC
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gender)
+            Gender
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.JoinedDate)
+            JoinedDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UpdatedDate)
+            UpdatedDate
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.PatientCollection) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.PIN)
@@ -60,9 +60,9 @@
             @Html.DisplayFor(modelItem => item.UpdatedDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.PatientId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PatientId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PatientId })
         </td>
     </tr>
 }
