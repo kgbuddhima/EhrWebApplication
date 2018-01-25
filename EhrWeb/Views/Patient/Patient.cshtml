@@ -8,7 +8,7 @@
 <h2>Patient</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Save", "Patient", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -70,7 +70,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.JoinedDate, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-6">
-                        @Html.DisplayFor(model => model.JoinedDate, new { htmlAttributes = new { @class = "control-label" } })
+                        @Html.EditorFor(model => model.JoinedDate, new { htmlAttributes = new { @class = "control-label" } })
                         @Html.ValidationMessageFor(model => model.JoinedDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.UpdatedDate, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-6">
-                        @Html.DisplayFor(model => model.UpdatedDate, new { htmlAttributes = new { @class = "control-label" } })
+                        @Html.EditorFor(model => model.UpdatedDate, new { htmlAttributes = new { @class = "control-label" } })
                         @Html.ValidationMessageFor(model => model.UpdatedDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -136,7 +136,14 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-4 col-md-6">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                        @if (Model.PatientId <= 0)
+                        {
+                            <input type="submit" formmethod="post" value="Add New" class="btn btn-default" />
+                        }
+                        else
+                        {
+                        <input type="submit" formmethod="post" value="Edit" class="btn btn-default" />
+                        }
                     </div>
                 </div>
             </div>
