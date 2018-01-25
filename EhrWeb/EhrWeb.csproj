@@ -160,6 +160,7 @@
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\PatientModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SvcURLs\SvcUrls.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

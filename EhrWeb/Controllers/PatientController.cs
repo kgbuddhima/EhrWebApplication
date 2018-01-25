@@ -32,13 +32,14 @@ namespace EhrWeb.Controllers
 
         // POST: Patient/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Save(PatientModel patient)
         {
             try
             {
+                PatientModel model = patient;
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return View("Patient", model);
+                //return RedirectToAction("Index");
             }
             catch
             {
