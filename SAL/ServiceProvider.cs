@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace SAL
 {
-    public class ServiceProvider : IServiceProvider
+    public class ServiceProvider : IEhrServiceProvider
     {
         ServiceResponseBE response;
 
@@ -150,8 +150,9 @@ namespace SAL
             Patient result = null;
             try
             {
+                string data = JsonConvert.SerializeObject(patient);
                 response = ServiceHelper.GetPOSTResponse(
-                    new Uri(SvcUrls.urlGetPatient), UtilityLibrary.GetValueString(patientId));
+                    new Uri(SvcUrls.urlGetPatient), UtilityLibrary.GetValueString(data));
                 if (response.HttpStatusCode == HttpStatusCode.OK)
                 {
                     result = JsonConvert.DeserializeObject<Patient>(response.ResponseMessage);

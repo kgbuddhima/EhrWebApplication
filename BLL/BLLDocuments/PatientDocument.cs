@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.BLLInterfaces;
 using BusinessEntity;
+using SAL;
 
 namespace BLL.BLLDocuments
 {
     public class PatientDocument : IPatientDocument
     {
+        IEhrServiceProvider _service = new ServiceProvider();
+
         /// <summary>
         /// Deactivate patient
         /// </summary>
@@ -19,13 +22,13 @@ namespace BLL.BLLDocuments
         {
             try
             {
-
+                if (patientId<=0) { return false; }
+                return _service.DeletePatient(patientId);
             }
             catch (Exception)
             {
                 throw;
             }
-            return false;
         }
 
         /// <summary>
@@ -37,13 +40,13 @@ namespace BLL.BLLDocuments
         {
             try
             {
-
+                if (string.IsNullOrWhiteSpace(value)) { return null; }
+                return _service.GetPatient(value);
             }
             catch (Exception)
             {
                 throw;
             }
-            return null;
         }
 
         /// <summary>
@@ -55,13 +58,13 @@ namespace BLL.BLLDocuments
         {
             try
             {
-
+                if (patientId<=0) { return null; }
+                return _service.GetPatientById(patientId);
             }
             catch (Exception)
             {
                 throw;
             }
-            return null;
         }
 
         /// <summary>
@@ -73,13 +76,13 @@ namespace BLL.BLLDocuments
         {
             try
             {
-
+                if (string.IsNullOrWhiteSpace(pin)) { return null; }
+                return _service.GetPatientByPin(pin);
             }
             catch (Exception)
             {
                 throw;
             }
-            return null;
         }
 
         /// <summary>
@@ -90,13 +93,12 @@ namespace BLL.BLLDocuments
         {
             try
             {
-
+                return _service.GetPatientCollection()?.OrderBy(o=>o.PatientName).ToList();
             }
             catch (Exception)
             {
                 throw;
             }
-            return null;
         }
 
         /// <summary>
@@ -108,13 +110,12 @@ namespace BLL.BLLDocuments
         {
             try
             {
-
+                return _service.SavePatient(patient);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
-            return null;
         }
     }
 }
