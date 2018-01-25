@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SAL
 {
-    public interface IServiceProvider
+    public interface IEhrServiceProvider
     {
         /// <summary>
         /// Deactivate patient
