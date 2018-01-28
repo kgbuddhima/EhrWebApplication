@@ -15,6 +15,65 @@ namespace SAL
     {
         ServiceResponseBE response;
 
+
+        /// <summary>
+        /// validate login credentials of patient member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns>PatientID</returns>
+        public int CheckPatientLogin(Credentials credentials)
+        {
+            try
+            {
+                string data = JsonConvert.SerializeObject(credentials);
+                response = ServiceHelper.GetPOSTResponse(
+                    new Uri(SvcUrls.urlChekPatientLogin), UtilityLibrary.GetValueString(data));
+                if (response.HttpStatusCode == HttpStatusCode.OK)
+                {
+                    int resp = JsonConvert.DeserializeObject<int>(response.ResponseMessage);
+                    if (resp > 0)
+                    {
+                        return resp;
+                    }
+                    else return 0;
+                }
+                else throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// validate login credentials of staff member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns>StaffID</returns>
+        public int CheckStaffLogin(Credentials credentials)
+        {
+            try
+            {
+                string data = JsonConvert.SerializeObject(credentials);
+                response = ServiceHelper.GetPOSTResponse(
+                    new Uri(SvcUrls.urlCheckStaffLogin), UtilityLibrary.GetValueString(data));
+                if (response.HttpStatusCode == HttpStatusCode.OK)
+                {
+                    int resp = JsonConvert.DeserializeObject<int>(response.ResponseMessage);
+                    if (resp > 0)
+                    {
+                        return resp;
+                    }
+                    else return 0;
+                }
+                else throw new NullReferenceException();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         /// <summary>
         /// Deactivate patient
         /// </summary>
