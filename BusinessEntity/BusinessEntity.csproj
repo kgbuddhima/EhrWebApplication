@@ -41,12 +41,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="Credentials.cs" />
     <Compile Include="Doctor.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="PatientHealthData.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaffMember.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{b6fbd4a4-e819-4595-bb95-661cff4715ac}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
