@@ -14,6 +14,32 @@ namespace BLL.BLLDocuments
         IEhrServiceProvider _service = new ServiceProvider();
 
         /// <summary>
+        /// validate login credentials of patient/staff member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        public int CheckLogin(Credentials credentials)
+        {
+            try
+            {
+                if (credentials==null) { return 0; }
+                if (credentials.UserType == Utility.CommonUnit.UserType.Patient)
+                {
+                    return _service.CheckPatientLogin(credentials);
+                }
+                else if (credentials.UserType == Utility.CommonUnit.UserType.Staff)
+                {
+                    return _service.CheckStaffLogin(credentials);
+                }
+                else { return 0; }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
         /// Deactivate patient
         /// </summary>
         /// <param name="patientId"></param>

@@ -10,6 +10,13 @@ namespace BLL.BLLInterfaces
     public interface IPatientDocument
     {
         /// <summary>
+        /// validate login credentials of patient/staff member
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
+        int CheckLogin(Credentials credentials);
+
+        /// <summary>
         /// Deactivate patient
         /// </summary>
         /// <param name="patientId"></param>
