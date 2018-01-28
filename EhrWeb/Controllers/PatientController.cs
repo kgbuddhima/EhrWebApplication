@@ -16,7 +16,7 @@ namespace EhrWeb.Controllers
         IPatientDocument _document = new PatientDocument();
 
         // GET: Patient
-        public ActionResult Patient()
+        public ActionResult Patient(int? usertype)
         {
             PatientModel model = new PatientModel();
             model.Address = new AddressModel();

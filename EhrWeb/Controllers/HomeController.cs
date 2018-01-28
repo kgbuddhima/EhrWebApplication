@@ -15,7 +15,7 @@ namespace EhrWeb.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Kingston EHR Solutions (Pvt) Ltd";
 
             return View();
         }

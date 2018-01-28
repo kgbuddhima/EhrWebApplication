@@ -124,5 +124,20 @@ namespace EhrWeb.ViewModels
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Map User Model to Credentials
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static Credentials MapCredentials(UserModel model)
+        {
+            return new Credentials()
+            {
+                UserName = model.UserName,
+                Password = model.Password,
+                UserType = model.UserType
+            };
+        }
     }
 }
