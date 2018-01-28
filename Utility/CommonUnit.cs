@@ -11,6 +11,12 @@ namespace Utility
         public const string oFailed = "Failed";
         public const string oSuccess = "Success";
         public const string oError = "Error";
+        public enum UserType
+        {
+            None,
+            Staff,
+            Patient
+        }
     }
 }
 
