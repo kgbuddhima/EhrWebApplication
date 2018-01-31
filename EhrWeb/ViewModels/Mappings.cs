@@ -55,16 +55,16 @@ namespace EhrWeb.ViewModels
             {
                 model = new PatientModel()
                 {
-                    ID = model.ID,
-                    PatientId = model.PatientId,
-                    PatientName = model.PatientName,
-                    Birthday = model.Birthday,
-                    Gender = model.Gender,
-                    IsActive = model.IsActive,
-                    JoinedDate = model.JoinedDate,
-                    NIC = model.NIC,
-                    PIN = model.PIN,
-                    UpdatedDate = model.UpdatedDate
+                    ID = patient.ID,
+                    PatientId = patient.PatientId,
+                    PatientName = patient.PatientName,
+                    Birthday = patient.Birthday,
+                    Gender = patient.Gender,
+                    IsActive = patient.IsActive,
+                    JoinedDate = patient.JoinedDate,
+                    NIC = patient.NIC,
+                    PIN = patient.PIN,
+                    UpdatedDate = patient.UpdatedDate
                 };
                 MapAddress(model, patient);
             }
@@ -92,7 +92,7 @@ namespace EhrWeb.ViewModels
                 model.Address.AddressL3 = patient.Address.AddressL3;
                 model.Address.City = patient.Address.City;
                 model.Address.Country = patient.Address.Country;
-                model.Address.PostCode = patient.Address.Country;
+                model.Address.PostCode = patient.Address.PostCode;
             }
             catch (Exception ex)
             {
@@ -117,7 +117,7 @@ namespace EhrWeb.ViewModels
                 patient.Address.AddressL3 = model.Address.AddressL3;
                 patient.Address.City = model.Address.City;
                 patient.Address.Country = model.Address.Country;
-                patient.Address.PostCode = model.Address.Country;
+                patient.Address.PostCode = model.Address.PostCode;
             }
             catch (Exception ex)
             {
