@@ -63,7 +63,9 @@ namespace EhrWeb.Controllers
         // GET: Patient/Create
         public ActionResult Create()
         {
-            return View();
+            PatientModel model = new PatientModel();
+            model.Address = new AddressModel();
+            return View("Patient", model);
         }
 
         // POST: Patient/Save
@@ -83,17 +85,21 @@ namespace EhrWeb.Controllers
         }
 
         // GET: Patient/Edit/5
-        public ActionResult Edit(int id)
+        /*public ActionResult Edit(int id)
         {
             try
             {
-                return RedirectToAction("Index");
+                PatientModel model = new PatientModel();
+                Patient result = _document.GetPatientById(id);
+                model = Mappings.MapPatient(result);
+                return View("Patient", model);
+                //return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 throw;
             }
-        }
+        }*/
 
         // POST: Patient/Edit/5
         [System.Web.Http.HttpPost]
@@ -150,11 +156,12 @@ namespace EhrWeb.Controllers
                 List<Patient> col = _document.GetPatientCollection();
                 PatientListViewModel model = new PatientListViewModel();
                 model.PatientCollection = col;
-                return View("PatientList", col.ToList());
+                return View("PatientList", model);
             }
             catch (Exception ex)
             {
-                throw;
+                ViewBag.Error = "User type is invalid !"+Environment.NewLine+ ex.Message;
+                return RedirectToAction("Index", "Home");
             }
         }
     }

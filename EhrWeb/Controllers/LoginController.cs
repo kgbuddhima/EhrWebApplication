@@ -49,7 +49,7 @@ namespace EhrWeb.Controllers
                     }
                     else if (user.UserType == CommonUnit.UserType.Staff)
                     {
-                        return RedirectToAction("Patient", "Patient", new { usertype = 1 });
+                        return RedirectToAction("PatientList", "Patient", new { usertype = 1 });
                     }
                     else
                     {
