@@ -211,7 +211,7 @@ namespace SAL
             {
                 string data = JsonConvert.SerializeObject(patient);
                 response = ServiceHelper.GetPOSTResponse(
-                    new Uri(SvcUrls.urlGetPatient), UtilityLibrary.GetValueString(data));
+                    new Uri(SvcUrls.urlSavePatient), UtilityLibrary.GetValueString(data));
                 if (response.HttpStatusCode == HttpStatusCode.OK)
                 {
                     result = JsonConvert.DeserializeObject<Patient>(response.ResponseMessage);
