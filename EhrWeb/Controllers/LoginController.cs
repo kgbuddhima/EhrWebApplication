@@ -42,16 +42,19 @@ namespace EhrWeb.Controllers
                 int userID = _document.CheckLogin(Mappings.MapCredentials(user));
                 if (userID > 0)
                 {
-                    PatientModel patient = new PatientModel();
-                    /*if (user.UserType== CommonUnit.UserType.Patient)
+                    Session["UserID"] = userID;
+                    if (user.UserType == CommonUnit.UserType.Patient)
                     {
-                        BusinessEntity.Patient result = _document.GetPatientById(userID);
-                        if (result!=null)
-                        {
-                            patient = Mappings.MapPatient(result);
-                        }
-                    }*/
-                    return View("Patient", "Patient", patient);
+                        return RedirectToAction("Patient", "Patient", new { usertype=2 });
+                    }
+                    else if (user.UserType == CommonUnit.UserType.Staff)
+                    {
+                        return RedirectToAction("Patient", "Patient", new { usertype = 1 });
+                    }
+                    else
+                    {
+                        return View("UserType");
+                    }
                 }
                 else
                 {

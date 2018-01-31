@@ -8,6 +8,8 @@ using EhrWeb.ViewModels;
 using BLL.BLLDocuments;
 using BLL.BLLInterfaces;
 using BusinessEntity;
+using Utility;
+using System.Web.Http;
 
 namespace EhrWeb.Controllers
 {
@@ -16,11 +18,34 @@ namespace EhrWeb.Controllers
         IPatientDocument _document = new PatientDocument();
 
         // GET: Patient
-        public ActionResult Patient(int? usertype)
+        [System.Web.Http.HttpPost]
+        public ActionResult Patient([FromBody]int? usertype)
         {
-            PatientModel model = new PatientModel();
-            model.Address = new AddressModel();
-            return View("Patient",model);
+            try
+            {
+                int patientId = UtilityLibrary.GetValueInt(Session["UserID"], 0);
+                PatientModel model = new PatientModel();
+                if (usertype == (int)CommonUnit.UserType.Patient)
+                {
+                    Patient result = _document.GetPatientById(patientId);
+                    model = Mappings.MapPatient(result);
+                    return View("Patient", model);
+                }
+                else if (usertype == (int)CommonUnit.UserType.Patient)
+                {
+                    return View("Patient", model);
+                }
+                else
+                {
+                    ViewBag.Error = "User type is invalid !";
+                    return RedirectToAction("Login", "Login", CommonUnit.UserType.Staff);
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "User type is invalid !";
+                return RedirectToAction("Login", "Login", CommonUnit.UserType.Staff);
+            }
         }
 
         // GET: Patient/Details/5
@@ -29,7 +54,7 @@ namespace EhrWeb.Controllers
             return View();
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public ActionResult Details(int id, FormCollection collection)
         {
             return View();
@@ -42,7 +67,7 @@ namespace EhrWeb.Controllers
         }
 
         // POST: Patient/Save
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public ActionResult Save(PatientModel patientModel)
         {
             try
@@ -71,7 +96,7 @@ namespace EhrWeb.Controllers
         }
 
         // POST: Patient/Edit/5
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -102,7 +127,7 @@ namespace EhrWeb.Controllers
         }
 
         // POST: Patient/Delete/5
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
