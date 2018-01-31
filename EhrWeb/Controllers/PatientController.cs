@@ -31,7 +31,7 @@ namespace EhrWeb.Controllers
                     model = Mappings.MapPatient(result);
                     return View("Patient", model);
                 }
-                else if (usertype == (int)CommonUnit.UserType.Patient)
+                else if (usertype == (int)CommonUnit.UserType.Staff)
                 {
                     return View("Patient", model);
                 }
@@ -142,23 +142,20 @@ namespace EhrWeb.Controllers
             }
         }
 
-        //// GET: Patient/GetCollection
-        //public ActionResult PatientList()
-        //{
-        //    try
-        //    {
-        //        List<Patient> col = new List<BusinessEntity.Patient>(); //_document.GetPatientCollection();
-        //        col.Add(new Patient());
-        //        col.Add(new Patient());
-        //        col.Add(new Patient());
-        //        PatientListViewModel model = new PatientListViewModel();
-        //        model.PatientCollection = col;
-        //        return View("PatientList",col.ToList());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //}
+        // GET: Patient/GetCollection
+        public ActionResult PatientList()
+        {
+            try
+            {
+                List<Patient> col = _document.GetPatientCollection();
+                PatientListViewModel model = new PatientListViewModel();
+                model.PatientCollection = col;
+                return View("PatientList", col.ToList());
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
