@@ -136,6 +136,9 @@ namespace BLL.BLLDocuments
         {
             try
             {
+                if (patient==null) { return null; }
+
+                patient.UpdatedDate = DateTime.Now;
                 return _service.SavePatient(patient);
             }
             catch (Exception ex)
