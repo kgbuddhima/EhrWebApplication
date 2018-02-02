@@ -23,7 +23,8 @@ namespace EhrWeb.Controllers
         {
             try
             {
-                int patientId = UtilityLibrary.GetValueInt(Session["UserID"], 0);
+                Session["UserTypeID"] = usertype;
+                int patientId = usertype==2? (int)Session["UserID"]: UtilityLibrary.GetValueInt(Session["PatientID"], 0);
                 PatientModel model = new PatientModel();
                 if (usertype == (int)CommonUnit.UserType.Patient)
                 {
@@ -75,8 +76,13 @@ namespace EhrWeb.Controllers
             try
             {
                 Patient patient = _document.SavePatient(Mappings.MapPatient(patientModel));
-                PatientModel model = Mappings.MapPatient(patient);
-                return View("Patient", model);
+                if (patient != null)
+                {
+                    //PatientModel model = Mappings.MapPatient(patient);
+                    //return View("Patient", model);
+                    Session["PatientID"] = patient.PatientId;
+                }
+                return RedirectToAction("Patient","Patient",new { usertype= (int)Session["UserTypeID"] });
             }
             catch(Exception ex)
             {
@@ -119,19 +125,21 @@ namespace EhrWeb.Controllers
         }
 
         // GET: Patient/Delete/5
-        public ActionResult Delete(int id)
+        [System.Web.Http.HttpPost]
+        public ActionResult Delete([FromBody]int id)
         {
             try
             {
-                return View();
+                bool deleted = _document.DeletePatient(id);
+                return RedirectToAction("PatientList","Patient");
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }
 
+        /*
         // POST: Patient/Delete/5
         [System.Web.Http.HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
@@ -147,6 +155,7 @@ namespace EhrWeb.Controllers
                 throw;
             }
         }
+        */
 
         // GET: Patient/GetCollection
         public ActionResult PatientList()
