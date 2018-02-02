@@ -138,6 +138,7 @@ namespace BLL.BLLDocuments
             {
                 if (patient==null) { return null; }
 
+                patient.JoinedDate = patient.PatientId==0?DateTime.Now: patient.JoinedDate;
                 patient.UpdatedDate = DateTime.Now;
                 return _service.SavePatient(patient);
             }
