@@ -17,7 +17,7 @@ namespace EhrWeb.Controllers
     {
         IPatientDocument _document = new PatientDocument();
 
-        // GET: Patient
+        // POST: Patient
         [System.Web.Http.HttpPost]
         public ActionResult Patient([FromBody]int? usertype)
         {
@@ -49,17 +49,18 @@ namespace EhrWeb.Controllers
             }
         }
 
+        /*
         // GET: Patient/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-
+        
         [System.Web.Http.HttpPost]
         public ActionResult Details(int id, FormCollection collection)
         {
             return View();
-        }
+        }*/
 
         // GET: Patient/Create
         public ActionResult Create()

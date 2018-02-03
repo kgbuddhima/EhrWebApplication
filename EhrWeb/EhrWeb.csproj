@@ -209,6 +209,7 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Login\UserType.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Patient\SearchPatient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
